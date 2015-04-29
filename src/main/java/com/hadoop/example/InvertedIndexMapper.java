@@ -23,10 +23,15 @@ public class InvertedIndexMapper extends Mapper<LongWritable, Text, Text, Text> 
 		String tweetid = line[0];
 		tweetID.set(tweetid);
 		String textStr = line[1];
-		String[] wordArray = textStr.split(" ");
-		for(int i = 0; i <  wordArray.length; i++) { 
-			hashTag.set(wordArray[i]);
-			context.write(hashTag,tweetID);
+		//Handle tweets with no hashtags
+		if(textStr != null) {
+			String[] wordArray = textStr.split(" ");
+			for(int i = 0; i <  wordArray.length; i++) { 
+				hashTag.set(wordArray[i]);
+				context.write(hashTag,tweetID);
+			}
+
 		}
+		
 	}
 }
