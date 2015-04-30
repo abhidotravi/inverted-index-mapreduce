@@ -3,6 +3,7 @@ package com.hadoop.example;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
+import java.lang.ArrayIndexOutOfBoundsException;
 
 /*
  * TweetID, HashTag
@@ -22,15 +23,18 @@ public class InvertedIndexMapper extends Mapper<LongWritable, Text, Text, Text> 
 
 		String tweetid = line[0];
 		tweetID.set(tweetid);
-		String textStr = line[1];
 		//Handle tweets with no hashtags
-		if(textStr != null) {
+		try {
+			String textStr = line[1];
 			String[] wordArray = textStr.split(" ");
+			
 			for(int i = 0; i <  wordArray.length; i++) { 
 				hashTag.set(wordArray[i]);
 				context.write(hashTag,tweetID);
 			}
 
+		} catch(ArrayIndexOutOfBoundsException e) {
+			System.out.println("ArrayIndexOutOfBoundsException");
 		}
 		
 	}
