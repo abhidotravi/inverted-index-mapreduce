@@ -19,6 +19,8 @@ public class InvertedIndexMapper extends Mapper<LongWritable, Text, Text, Text> 
 
 	protected void map(LongWritable key, Text value, Context context)
 			throws java.io.IOException, InterruptedException {
+
+		//Split based the delimiter specified while submitting the job
 		String[] line = value.toString().split(",");
 
 		String tweetid = line[0];
@@ -26,6 +28,9 @@ public class InvertedIndexMapper extends Mapper<LongWritable, Text, Text, Text> 
 		//Handle tweets with no hashtags
 		try {
 			String textStr = line[1];
+
+			//Code to handle the data that contains multiple hashtags
+			//for a particular tweetID (May not be used in our case)
 			String[] wordArray = textStr.split(" ");
 			
 			for(int i = 0; i <  wordArray.length; i++) { 

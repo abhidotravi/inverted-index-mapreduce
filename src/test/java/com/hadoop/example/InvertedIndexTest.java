@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.util.List;
 import java.util.ArrayList;
 
+//Sample Test to check the working of Map and Reduce code
 public class InvertedIndexTest {
 	MapDriver<LongWritable, Text, Text, Text> mapDriver;
 	ReduceDriver<Text, Text, Text, Text> reduceDriver;
